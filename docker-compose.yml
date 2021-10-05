@@ -1,0 +1,16 @@
+services:
+  productpage:
+    build: .
+    image: ghcr.io/earndiva/bookinfo-productpage:dev
+    ports:
+      - "8083:8083"
+    environment:
+      DETAILS_HOSTNAME: http://details:8081
+      RATINGS_HOSTNAME: http://ratings:8080
+      REVIEWS_HOSTNAME: http://reviews:9080
+  ratings:
+    image: ghcr.io/earndiva/bookinfo-ratings:dev
+  reviews:
+    image: ghcr.io/earndiva/bookinfo-reviews:dev
+  details:
+    image: ghcr.io/earndiva/bookinfo-details:dev
