@@ -1,0 +1,21 @@
+productpage:
+  namespace: student20-bookinfo-uat
+  image: ghcr.io/earndiva/bookinfo-productpage
+  tag: uat
+  replicas: 1
+  imagePullSecrets: registry-bookinfo
+  port: 8080
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  host: itkmitl.bookinfo.uat.opsta.net
+  path: "/student20/productpage(/|$)(.*)"
+  serviceType: ClusterIP
+extraEnv:
+  SERVICE_VERSION: v2
+  MONGO_DB_URL: mongodb://bookinfo-uat-productpage-mongodb:27017/productpage
+  MONGO_DB_USERNAME: productpage
+extraEnvSecret:
+  MONGO_DB_PASSWORD:
+    bookinfo-uat-productpage-mongodb-secret: mongodb-password
